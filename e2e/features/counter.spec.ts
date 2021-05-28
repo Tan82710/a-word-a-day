@@ -2,7 +2,7 @@ import { Counter, APPLICATION_URL } from "../model";
 
 const counter = new Counter();
 
-fixture("Counter").page(APPLICATION_URL);
+fixture("Counter").page(APPLICATION_URL + "/counter");
 
 test("The user should land on the list page", async () => {
   await counter.expectValueToEqual(0);
