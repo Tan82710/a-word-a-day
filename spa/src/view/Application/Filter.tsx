@@ -3,7 +3,7 @@ import arrow from '../../assets/arrow.png';
 import { List } from './List';
 import { NavLink } from "react-router-dom";
 
-export interface Props { }
+export interface Props {}
 
 interface Per {
     id: number,
@@ -58,18 +58,18 @@ export const Filter: React.FunctionComponent<Props> = () => {
         return setPeriod(per[period.id]);
     }
 
+    const state = {data : period.label}
+
     return (
         <div>
-            <NavLink to={"/" + period.label}>
                 <nav className="pagination is-centered" role="navigation" aria-label="pagination">
-                    <a className="pagination-previous" id="previous"><img src={arrow} onClick={() => togglePrevious()} /></a>
+                    <div className="pagination-previous" id="previous"><img src={arrow} onClick={() => togglePrevious()} /></div>
                     <ul className="pagination-list">
                         <h1>{period.label}</h1>
                     </ul>
-                    <a className="pagination-next"><img src={arrow} onClick={() => toggleNext()} /></a>
+                    <div className="pagination-next"><img src={arrow} onClick={() => toggleNext()} /></div>
                 </nav>
-            </NavLink>
-            <List />
+            <List dataFromFilter = {state.data}/>
         </div>
     )
 };

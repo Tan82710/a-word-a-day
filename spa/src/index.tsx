@@ -15,7 +15,7 @@ ReactDOM.render(
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path="/:data" component={Application} />
+          <Route exact path="/" component={Application} />
           <Route exact path="/detail/:id" component={Detail} />
           <Route exact path="/counter" component={Counter} />
           <Route component={Error404} />
