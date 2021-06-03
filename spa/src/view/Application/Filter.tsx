@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import arrow from '../../assets/arrow.png';
 import { List } from './List';
 import { NavLink } from "react-router-dom";
@@ -43,7 +43,7 @@ const per: Per[] = [
 
 export const Filter: React.FunctionComponent<Props> = () => {
     const [period, setPeriod] = useState<Per>(per[0]);
-
+    
     function togglePrevious() {
         if (period.id == 1) {
             return setPeriod(per[per.length - 1]);
@@ -63,13 +63,14 @@ export const Filter: React.FunctionComponent<Props> = () => {
     return (
         <div>
                 <nav className="pagination is-centered" role="navigation" aria-label="pagination">
+               
                     <div className="pagination-previous" id="previous"><img src={arrow} onClick={() => togglePrevious()} /></div>
                     <ul className="pagination-list">
                         <h1>{period.label}</h1>
                     </ul>
                     <div className="pagination-next"><img src={arrow} onClick={() => toggleNext()} /></div>
                 </nav>
-            <List dataFromFilter = {state.data}/>
+                <List dataFromFilter = {state.data} />
         </div>
     )
 };

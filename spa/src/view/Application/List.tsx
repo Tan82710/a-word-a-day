@@ -7,10 +7,8 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { NavLink, useParams } from "react-router-dom";
 import "../../index.css";
-import { Filter } from "./Filter";
 
 import { DateTime } from "luxon";
-import { any, props } from "ramda";
 
 export interface Props {
   dataFromFilter: string;
@@ -44,33 +42,57 @@ export interface Example {
 export let example = [
   {
     id: 0,
-    mot: "lapin",
-    traduction: "rabbit",
-    date: DateTime.fromObject({ year: 2021, month: 6, day: 1 }),
+    mot: "Lapin",
+    traduction: "Rabbit",
+    date: DateTime.fromObject({ year: 2021, month: 6, day: 3 }),
     gapDate: 0,
   },
   {
     id: 1,
-    mot: "chat",
-    traduction: "cat",
-    date: DateTime.fromObject({ year: 2021, month: 5, day: 27 }),
+    mot: "Chat",
+    traduction: "Cat",
+    date: DateTime.fromObject({ year: 2021, month: 6, day: 1 }),
     gapDate: 0,
   },
   {
     id: 2,
-    mot: "chien",
-    traduction: "dog",
-    date: DateTime.fromObject({ year: 2019, month: 6, day: 10 }),
+    mot: "Chien",
+    traduction: "Dog",
+    date: DateTime.fromObject({ year: 2021, month: 5, day: 15}),
+    gapDate: 0,
+  },
+  {
+    id: 3,
+    mot: "Loup",
+    traduction: "Wolf",
+    date: DateTime.fromObject({year: 2021, month: 4, day: 30 }),
+    gapDate: 0,
+  },
+  {
+    id: 4,
+    mot: "Cheval",
+    traduction: "Horse",
+    date: DateTime.fromObject({ year: 2021, month: 1, day: 15}),
+    gapDate: 0,
+  },
+  {
+    id: 5,
+    mot: "Canard",
+    traduction: "Duck",
+    date: DateTime.fromObject({ year: 2020, month: 8, day: 26}),
+    gapDate: 0,
+  },
+  {
+    id: 6,
+    mot: "Serpent",
+    traduction: "Snake",
+    date: DateTime.fromObject({ year: 2019, month: 1, day: 2}),
     gapDate: 0,
   },
 ];
 
-let examples: Example[] = example;
-let filterData: any = [];
-let indent: any = [];
 
 let arrGapDays: number[] = [];
-
 function gap(arrGapDays: number[]) {
   for (var i = 0; i < example.length; i++) {
     const days = example[i].date.diffNow("day");
@@ -83,10 +105,10 @@ function gap(arrGapDays: number[]) {
   }
 }
 
+let examples: Example[] = example;
 const selectPeriod = (stringPeriod: string) => {
   examples.map((x) => (x.gapDate = arrGapDays[x.id]));
-  console.log(examples);
-
+  console.log(examples)
   switch (stringPeriod) {
     case "Hier":
       console.log("HIER");
@@ -96,6 +118,22 @@ const selectPeriod = (stringPeriod: string) => {
       console.log("1 SEMAINE");
       filter(-8);
       break;
+    case "1 Mois":
+      console.log("1 Mois");
+      filter(-32);
+      break;
+    case "3 Mois":
+      console.log("3 Mois");
+      filter(-92);
+      break;
+    case "6 Mois":
+      console.log("6 Mois");
+      filter(-183);
+      break;
+    case "1 An":
+      console.log("1 an");
+      filter(-366);
+      break;
     case "Tout":
       filter(-10000);
       break;
@@ -104,65 +142,56 @@ const selectPeriod = (stringPeriod: string) => {
   }
 };
 
+let filterData: any = [];
+let indent: any = [];
 function filter(gapDay: number) {
-  filterData = examples.filter((x) => x.gapDate >= gapDay);
+  filterData = examples.filter((x) => x.gapDate >= gapDay && x.gapDate <= 0);
   indent = filterData;
-  console.log(indent);
 }
 
 export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
   const period = dataFromFilter;
   const classes = useStyles();
-  let indents: any = [];
-    console.log(indent)
-    console.log(examples)
+  const dataIndent: any = [];
+
   gap(arrGapDays);
+  selectPeriod(period.dataFromFilter);
 
-
-  useEffect(() => {
-    selectPeriod(period.dataFromFilter);
-    console.log(indent)
-  });
-
-
-    for (var i = 0; i < indent.length; i++) {
-        console.log(indent[i].mot);
-        indents.push(
-          <Card
-            className={classes.root}
-            style={{
-              textAlign: "center",
-              backgroundColor: "gray",
-              margin: "3%",
-            }}
-            key={indent[i].id.toString()}
+  for (var i = 0; i < indent.length; i++) {
+    dataIndent.push(
+      <Card
+        className={classes.root}
+        style={{
+          textAlign: "center",
+          backgroundColor: "gray",
+          margin: "3%",
+        }}
+        key={indent[i].id.toString()}
+      >
+        <CardContent>
+          <Typography variant="h5" component="h2">
+            {indent[i].mot}
+          </Typography>
+          <Typography
+            className={classes.title}
+            color="textSecondary"
+            gutterBottom
           >
-            <CardContent>
-              <Typography variant="h5" component="h2">
-                {indent[i].mot}
-              </Typography>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
-                {indent[i].traduction}
-              </Typography>
-            </CardContent>
-            <NavLink to={"/detail/" + i}>
-              <CardActions
-                style={{
-                  justifyContent: "center",
-                }}
-              >
-                <Button size="small">Learn More</Button>
-              </CardActions>
-            </NavLink>
-          </Card>
-        );
-      }
-  
-  console.log(filterData)
-  console.log(indents);
-  return <div id="grid">{indents}</div>;
+            {indent[i].traduction}
+          </Typography>
+        </CardContent>
+        <NavLink to={"/detail/" + i}>
+          <CardActions
+            style={{
+              justifyContent: "center",
+            }}
+          >
+            <Button size="small">Learn More</Button>
+          </CardActions>
+        </NavLink>
+      </Card>
+    );
+  }
+
+  return <div id="grid">{dataIndent}</div>;
 };
