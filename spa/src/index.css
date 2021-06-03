@@ -56,3 +56,8 @@
   filter: FlipH;
   -ms-filter: "FlipH";
 }
+
+#red{
+  color : red;
+  background-color: yellow;
+}
