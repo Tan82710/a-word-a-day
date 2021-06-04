@@ -44,7 +44,7 @@ export let example = [
     id: 0,
     mot: "Lapin",
     traduction: "Rabbit",
-    date: DateTime.fromObject({ year: 2021, month: 6, day: 3 }),
+    date: DateTime.fromObject({ year: 2021, month: 6, day: 4 }),
     gapDate: 0,
   },
   {
@@ -147,6 +147,7 @@ let indent: any = [];
 function filter(gapDay: number) {
   filterData = examples.filter((x) => x.gapDate >= gapDay && x.gapDate <= 0);
   indent = filterData;
+  console.log(indent)
 }
 
 export const List: React.FunctionComponent<Props> = (dataFromFilter) => {

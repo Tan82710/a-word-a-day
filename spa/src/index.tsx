@@ -8,6 +8,7 @@ import Application from "./view/Application";
 import Counter from "./view/Counter";
 import Detail from "./view/Detail";
 import Error404 from "./view/Error404";
+import Quizz from "./view/Quizz";
 import "./index.css";
 
 ReactDOM.render(
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/" component={Application} />
           <Route exact path="/detail/:id" component={Detail} />
+          <Route exact path="/quizz" component={Quizz} />
           <Route exact path="/counter" component={Counter} />
           <Route component={Error404} />
         </Switch>
