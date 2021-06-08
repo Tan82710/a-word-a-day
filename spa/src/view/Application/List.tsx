@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { NavLink, useParams } from "react-router-dom";
 import "../../index.css";
+import {Add, labels} from "../Application/Add";
 
 import { DateTime } from "luxon";
 
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-export interface Example {
+export interface Liste {
   id: number;
   mot: string;
   traduction: string;
@@ -39,7 +40,7 @@ export interface Example {
   gapDate: number;
 }
 
-export let example = [
+export let liste = [
   {
     id: 0,
     mot: "Lapin",
@@ -57,7 +58,7 @@ export let example = [
   {
     id: 2,
     mot: "Chien",
-    traduction: "Dog",
+    traduction: "Dogggggggg",
     date: DateTime.fromObject({ year: 2021, month: 5, day: 15}),
     gapDate: 0,
   },
@@ -94,21 +95,20 @@ export let example = [
 
 let arrGapDays: number[] = [];
 function gap(arrGapDays: number[]) {
-  for (var i = 0; i < example.length; i++) {
-    const days = example[i].date.diffNow("day");
+  for (var i = 0; i < liste.length; i++) {
+    const days = liste[i].date.diffNow("day");
     const gapDays = days.days;
-    if (arrGapDays.length < example.length) {
+    if (arrGapDays.length < liste.length) {
       arrGapDays.push(gapDays);
     } else {
-      arrGapDays.splice(example[i].id, 1, gapDays);
+      arrGapDays.splice(liste[i].id, 1, gapDays);
     }
   }
 }
 
-let examples: Example[] = example;
+let listes: Liste[] = liste;
 const selectPeriod = (stringPeriod: string) => {
-  examples.map((x) => (x.gapDate = arrGapDays[x.id]));
-  console.log(examples)
+  listes.map((x) => (x.gapDate = arrGapDays[x.id]));
   switch (stringPeriod) {
     case "Hier":
       console.log("HIER");
@@ -145,15 +145,41 @@ const selectPeriod = (stringPeriod: string) => {
 let filterData: any = [];
 let indent: any = [];
 function filter(gapDay: number) {
-  filterData = examples.filter((x) => x.gapDate >= gapDay && x.gapDate <= 0);
+  filterData = listes.filter((x) => x.gapDate >= gapDay && x.gapDate <= 1);
   indent = filterData;
-  console.log(indent)
 }
 
 export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
   const period = dataFromFilter;
   const classes = useStyles();
   const dataIndent: any = [];
+
+  const arr : string[] = [];
+  let newWord : Liste;
+
+  const updateWord = (data : string) => {
+    if(arr.length<2){
+      arr.push(data);
+    }else{
+      //On enlève la première data et on en ajoute une en dernière position.
+      arr.splice(0)
+      arr.push(data);
+    }
+    //Notre nouveau mot
+    newWord = {
+      id: liste.length,
+      mot: arr[0],
+      traduction: arr[1],
+      date: DateTime.local(),
+      gapDate: 0,
+    }
+    if(arr.length == 2){
+      //On ajoute notre mot à notre liste 
+      liste.push(newWord);
+    }else{
+      return data;
+    } 
+  }
 
   gap(arrGapDays);
   selectPeriod(period.dataFromFilter);
@@ -181,7 +207,7 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
             {indent[i].traduction}
           </Typography>
         </CardContent>
-        <NavLink to={"/detail/" + i}>
+        <NavLink to={"/detail/" + indent[i].id}>
           <CardActions
             style={{
               justifyContent: "center",
@@ -194,5 +220,8 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
     );
   }
 
-  return <div id="grid">{dataIndent}</div>;
+  return <div id="space">
+    {dataIndent}
+  <Add updateWord={updateWord}/>
+  </div>;
 };

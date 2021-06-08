@@ -44,7 +44,7 @@
   margin: 0.5rem;
 }
 
-.grid{
+.space{
   justify-content: space-around;
 }
 
@@ -71,3 +71,56 @@
   font-size: 3em;
   color: black;
 }
+
+#circle{
+  background-color: #f50057;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+}
+
+#GrAdd{
+  width: 25px;
+  height: 25px;
+  fill: aqua;
+}
+
+#grid{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+}
+
+#modal{
+  padding: 20px;
+
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+}
+
+#test{
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border-radius: 3px;
+  padding: 40%;
+}
+
+#centerWord{
+  margin: 5%;
+  height: 100px;
+  font-size: 2em;
+}
+
+#standard-basic{
+  font-size: larger;
+}
+

@@ -76,7 +76,6 @@ export const Header: React.FunctionComponent<Props> = () => {
         >
           <Tab icon={<BsListUl id="BsListUl" />} label="List" />
           <Tab icon={<BsTrophy id="BsTrophy" />} label="Quizz" />
-
         </Tabs>
 
         <TabPanel value={value} index={0}>

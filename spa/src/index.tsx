@@ -9,6 +9,7 @@ import Counter from "./view/Counter";
 import Detail from "./view/Detail";
 import Error404 from "./view/Error404";
 import Quizz from "./view/Quizz";
+import Test from "./view/Test";
 import "./index.css";
 
 ReactDOM.render(
@@ -20,6 +21,7 @@ ReactDOM.render(
           <Route exact path="/detail/:id" component={Detail} />
           <Route exact path="/quizz" component={Quizz} />
           <Route exact path="/counter" component={Counter} />
+          <Route exact path="/test" component={Test} />
           <Route component={Error404} />
         </Switch>
       </Router>
