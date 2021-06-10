@@ -92,7 +92,6 @@ export let liste = [
   },
 ];
 
-
 let arrGapDays: number[] = [];
 function gap(arrGapDays: number[]) {
   for (var i = 0; i < liste.length; i++) {
@@ -108,6 +107,7 @@ function gap(arrGapDays: number[]) {
 
 let listes: Liste[] = liste;
 const selectPeriod = (stringPeriod: string) => {
+
   listes.map((x) => (x.gapDate = arrGapDays[x.id]));
   switch (stringPeriod) {
     case "Hier":
@@ -147,17 +147,32 @@ let indent: any = [];
 function filter(gapDay: number) {
   filterData = listes.filter((x) => x.gapDate >= gapDay && x.gapDate <= 1);
   indent = filterData;
+  console.log(indent)
 }
 
+export const deleteWord = (data : Liste) => {
+  const index = listes.indexOf(data);
+  listes.splice(index, 1)
+}
+
+// export const updateWord = (data : Liste) => {
+//   console.log('update from list')
+//   const index = listes.indexOf(data);
+//   listes.splice(index, 1, data)
+// }
+
+export let myPeriod : string ;
 export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
-  const period = dataFromFilter;
+
+  const period = dataFromFilter.dataFromFilter;
+  myPeriod = period;
   const classes = useStyles();
   const dataIndent: any = [];
 
   const arr : string[] = [];
   let newWord : Liste;
 
-  const updateWord = (data : string) => {
+  const updateList = (data : string) => {
     if(arr.length<2){
       arr.push(data);
     }else{
@@ -174,17 +189,22 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
       gapDate: 0,
     }
     if(arr.length == 2){
-      //On ajoute notre mot à notre liste 
-      liste.push(newWord);
+      if(arr[0] != "" && arr[1] != ""){
+        liste.push(newWord);
+      }
     }else{
       return data;
     } 
   }
 
   gap(arrGapDays);
-  selectPeriod(period.dataFromFilter);
+  selectPeriod(period);
+  console.log(liste)
 
   for (var i = 0; i < indent.length; i++) {
+    //const id permet d'adapter l'id pour le detail
+    const id = listes.indexOf(indent[i]);
+    const data = indent[i];
     dataIndent.push(
       <Card
         className={classes.root}
@@ -207,7 +227,7 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
             {indent[i].traduction}
           </Typography>
         </CardContent>
-        <NavLink to={"/detail/" + indent[i].id}>
+        <NavLink to={"/detail/" + id}>
           <CardActions
             style={{
               justifyContent: "center",
@@ -216,12 +236,16 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
             <Button size="small">Learn More</Button>
           </CardActions>
         </NavLink>
+        <NavLink to={"/"}>
+        <Button onClick={() => deleteWord(data)}>Delete</Button>
+        </NavLink>
+        
       </Card>
     );
   }
 
   return <div id="space">
     {dataIndent}
-  <Add updateWord={updateWord}/>
+  <Add updateList={updateList}/>
   </div>;
 };

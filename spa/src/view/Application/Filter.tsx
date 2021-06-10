@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import arrow from "../../assets/arrow.png";
-import { List } from "./List";
+import { List, myPeriod } from "./List";
 
 
 export interface Props {}
@@ -42,7 +42,7 @@ const per: Per[] = [
 ];
 
 export const Filter: React.FunctionComponent<Props> = () => {
-  const [period, setPeriod] = useState<Per>(per[0]);
+  let [period, setPeriod] = useState<Per>(per[0]);
 
   function togglePrevious() {
     if (period.id == 1) {
@@ -70,9 +70,9 @@ export const Filter: React.FunctionComponent<Props> = () => {
         <div className="pagination-previous" id="previous">
           <img src={arrow} onClick={() => togglePrevious()} />
         </div>
-        <ul className="pagination-list">
+        <div className="pagination-list">
           <h1>{period.label}</h1>
-        </ul>
+        </div>
         <div className="pagination-next">
           <img src={arrow} onClick={() => toggleNext()} />
         </div>

@@ -62,12 +62,7 @@
   background-color: yellow;
 }
 
-#BsListUl{
-  font-size: 3em;
-  color: black;
-}
-
-#BsTrophy{
+#BsTrophy, #BsListUl {
   font-size: 3em;
   color: black;
 }
@@ -85,10 +80,38 @@
   box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 
+#circle2{
+  background-color: #f50057;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%), 0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+}
+
+
+#box{
+  display: grid;
+  grid-template-columns: 50px 50px;
+  align-items: start;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 10%;
+  width: 70%;
+  text-align: center;
+}
+
+#BsPencil, #BsTrash, #IoMdArrowRoundBack{
+  width: 50px;
+  height: 50px;
+}
+
 #GrAdd{
   width: 25px;
   height: 25px;
-  fill: aqua;
 }
 
 #grid{
@@ -105,15 +128,6 @@
   align-items: flex-start;
 }
 
-#test{
-  margin: 0 auto;
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  border-radius: 3px;
-  padding: 40%;
-}
-
 #centerWord{
   margin: 5%;
   height: 100px;
@@ -124,3 +138,13 @@
   font-size: larger;
 }
 
+#back {
+  position: fixed;
+    top: 10%;
+    left: 10%;
+}
+
+Paper{
+  margin: 0 auto;
+  width: 100px; 
+}

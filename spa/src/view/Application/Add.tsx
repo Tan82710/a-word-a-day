@@ -8,11 +8,12 @@ import { NavLink, useParams } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import { GrAdd } from "react-icons/gr";
+
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 
 export interface Props {
-  updateWord : (arg: string) => void
+  updateList : (arg: string) => void
 }
 
 export interface Label {
@@ -98,12 +99,11 @@ function SimpleDialog(props: SimpleDialogProps) {
           </Button>
         </ListItem>
         </NavLink>
-        </form>
-        
+        </form>   
   );
 }
 
-export const Add: React.FunctionComponent<Props> = ({updateWord}) => {
+export const Add: React.FunctionComponent<Props> = ({updateList}) => {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -114,7 +114,7 @@ export const Add: React.FunctionComponent<Props> = ({updateWord}) => {
   const handleClose = (value: string) => {
     setOpen(false);
     for(var i=0; i < labels.length; i++){
-      updateWord(labels[i].data)
+      updateList(labels[i].data)
     }
   };
   
