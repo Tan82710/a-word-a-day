@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import arrow from "../../assets/arrow.png";
-import { List, myPeriod } from "./List";
+import { List } from "./List";
 
 
 export interface Props {}

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import { GrAdd } from "react-icons/gr";
@@ -26,7 +26,6 @@ export const labels : Label[] = [
   {id: 0, name: "Mot", data: "" },
   {id: 1, name: "Traduction", data: "" },
 ];
-const data = [""];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

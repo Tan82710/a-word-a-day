@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../../index.css";
-import {Add, labels} from "../Application/Add";
+import {Add} from "../Application/Add";
 
 import { DateTime } from "luxon";
 
@@ -155,13 +155,8 @@ export const deleteWord = (data : Liste) => {
   listes.splice(index, 1)
 }
 
-// export const updateWord = (data : Liste) => {
-//   console.log('update from list')
-//   const index = listes.indexOf(data);
-//   listes.splice(index, 1, data)
-// }
-
 export let myPeriod : string ;
+
 export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
 
   const period = dataFromFilter.dataFromFilter;
@@ -199,7 +194,6 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
 
   gap(arrGapDays);
   selectPeriod(period);
-  console.log(liste)
 
   for (var i = 0; i < indent.length; i++) {
     //const id permet d'adapter l'id pour le detail

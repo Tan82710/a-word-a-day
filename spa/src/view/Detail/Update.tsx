@@ -52,14 +52,9 @@ export const Update: React.FunctionComponent<Props> = (newWord) => {
 
   const classes = useStyles();
   function SimpleDialog(props: SimpleDialogProps) {
-    const { onClose, selectedValue, open } = props;
 
     let [word, setWord] = React.useState<string>(words);
     let [translation, setTranslation] = React.useState<string>(translations);
-
-    const handleCloses = () => {
-      onClose(selectedValue);
-    };
 
     //MaJ d'un mot
     const updateWord = (word: string, translation: string) => {
