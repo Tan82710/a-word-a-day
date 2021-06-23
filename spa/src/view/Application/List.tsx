@@ -34,20 +34,22 @@ const useStyles = makeStyles({
   },
 });
 
-export interface Liste {
+export interface Translation {
   id: number;
   mot: string;
   traduction: string;
   date: DateTime;
+  note : string;
   gapDate: number;
 }
 
-export let liste = [
+export let liste : Translation[] = [
   {
     id: 0,
     mot: "Lapin",
     traduction: "Rabbit",
     date: DateTime.fromObject({ year: 2021, month: 6, day: 14 }),
+    note : "blabla",
     gapDate: 0,
   },
   {
@@ -55,6 +57,7 @@ export let liste = [
     mot: "Chat",
     traduction: "Cat",
     date: DateTime.fromObject({ year: 2021, month: 6, day: 13 }),
+    note : "blabla",
     gapDate: 0,
   },
   {
@@ -62,6 +65,7 @@ export let liste = [
     mot: "Chien",
     traduction: "Dogggggggg",
     date: DateTime.fromObject({ year: 2021, month: 6, day: 1}),
+    note : "blabla",
     gapDate: 0,
   },
   {
@@ -69,6 +73,7 @@ export let liste = [
     mot: "Loup",
     traduction: "Wolf",
     date: DateTime.fromObject({year: 2021, month: 4, day: 30 }),
+    note : "blabla",
     gapDate: 0,
   },
   {
@@ -76,6 +81,7 @@ export let liste = [
     mot: "Cheval",
     traduction: "Horse",
     date: DateTime.fromObject({ year: 2021, month: 1, day: 15}),
+    note : "blabla",
     gapDate: 0,
   },
   {
@@ -83,6 +89,7 @@ export let liste = [
     mot: "Canard",
     traduction: "Duck",
     date: DateTime.fromObject({ year: 2020, month: 8, day: 26}),
+    note : "blabla",
     gapDate: 0,
   },
   {
@@ -90,6 +97,7 @@ export let liste = [
     mot: "Serpent",
     traduction: "Snake",
     date: DateTime.fromObject({ year: 2019, month: 1, day: 2}),
+    note : "blabla",
     gapDate: 0,
   },
 ];
@@ -107,7 +115,7 @@ function gap(arrGapDays: number[]) {
   }
 }
 
-let listes: Liste[] = liste;
+let listes: Translation[] = liste;
 const selectPeriod = (stringPeriod: string) => {
 
   listes.map((x) => (x.gapDate = arrGapDays[x.id]));
@@ -152,9 +160,9 @@ function filter(gapDay: number) {
   console.log(indent)
 }
 
-export const deleteWord = () => {
-  deleteWords()
-}
+// export const deleteWord = (data : Liste) => {
+//   deleteWords(data)
+// }
 
 // let check : boolean;
 // export const deleteWord = (data : Liste) => {
@@ -172,8 +180,8 @@ export let myPeriod : string ;
 
 export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
 
-
-  function deleteWords(data : Liste){
+  console.log(localStorage.getItem('arr') || '');
+  function deleteWords(data : Translation){
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -198,7 +206,6 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
     })
   }
   
-
   function test(){
     handleOnClick()
   }
@@ -212,11 +219,12 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
   const dataIndent: any = [];
 
   const arr : string[] = [];
-  let newWord : Liste;
+  let newWord : Translation;
 
   const updateList = (data : string) => {
     if(arr.length<2){
-      arr.push(data);
+      localStorage.setItem('arr', data);
+      arr.push(localStorage.getItem('arr') || '');
     }else{
       //On enlève la première data et on en ajoute une en dernière position.
       arr.splice(0)
@@ -228,6 +236,7 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
       mot: arr[0],
       traduction: arr[1],
       date: DateTime.local(),
+      note : arr[3],
       gapDate: 0,
     }
     if(arr.length == 2){

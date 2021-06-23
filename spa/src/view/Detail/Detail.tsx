@@ -74,6 +74,9 @@ export const Detail: React.FunctionComponent<Props> = () => {
           </h1>
         </div>
       </Paper>
+      <div id="note">
+        Note : <b>{liste[idNbr].note}</b>
+      </div>
       <Update newWord={word}/>
     </div>
   );

@@ -63,8 +63,8 @@ function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
 
-  let [word, setWord] = React.useState<string>("");
-  let [translation, setTranslation ] = React.useState<string>("");
+  let [word, setWord] = React.useState<string>(localStorage.getItem('word') || '');
+  let [translation, setTranslation ] = React.useState<string>(localStorage.getItem('translation') || '');
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -79,10 +79,12 @@ function SimpleDialog(props: SimpleDialogProps) {
   }
 
   const handleChangeWord = (event: React.ChangeEvent<HTMLInputElement>) => {
+    localStorage.setItem('word', event.target.value);
     setWord(event.target.value);
   }
 
   const handleChangeTranslation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    localStorage.setItem('translation', event.target.value);
     setTranslation(event.target.value);
   }
 

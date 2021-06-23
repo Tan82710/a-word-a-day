@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useCallback} from "react";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import IconButton from "@material-ui/core/IconButton";
-import { deleteWord, Liste } from "../Application/List";
-import { NavLink } from "react-router-dom";
+import { Translation, liste } from "../Application/List";
+import { NavLink, useHistory } from "react-router-dom";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Input from "@material-ui/core/Input";
@@ -11,9 +11,11 @@ import ListItem from "@material-ui/core/ListItem";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { SimpleDialogProps, labels } from "../Application/Add";
 import Button from "@material-ui/core/Button";
+import Swal from 'sweetalert2';
+
 
 export interface Props {
-  newWord: Liste;
+  newWord: Translation;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,6 +48,37 @@ export const Update: React.FunctionComponent<Props> = (newWord) => {
   const words = newWord.newWord.mot;
   const translations = newWord.newWord.traduction;
 
+  function deleteWords(data : Translation){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result: { isConfirmed: any; }) => {
+      console.log(result.isConfirmed)
+      if (result.isConfirmed) { 
+        // check = result.isConfirmed;
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+          const index = liste.indexOf(data);
+          liste.splice(index, 1)
+          test()
+      }
+    })
+  }
+
+  function test(){
+    handleOnClick()
+  }
+  const history = useHistory();
+  const handleOnClick = useCallback(() => history.push('/'), [history]);
+
   const handleClickOpen = () => {
     console.log("OPEN");
     setOpen(true);
@@ -54,8 +87,8 @@ export const Update: React.FunctionComponent<Props> = (newWord) => {
   const classes = useStyles();
   function SimpleDialog(props: SimpleDialogProps) {
 
-    let [word, setWord] = React.useState<string>(words);
-    let [translation, setTranslation] = React.useState<string>(translations);
+    const [word, setWord] = React.useState<string>(words);
+    const [translation, setTranslation] = React.useState<string>(translations);
 
     //MaJ d'un mot
     const updateWord = (word: string, translation: string) => {
@@ -105,16 +138,16 @@ export const Update: React.FunctionComponent<Props> = (newWord) => {
   const handleClose = (value: string) => {
     setOpen(false);
   };
-
-  const deleteWords = () => {
-    deleteWord(data);
+ 
+  const deleteWord = () => {
+    deleteWords(data);
   };
 
   return (
     <div id="box">
       <div id="circle2">
         <NavLink to={"/"}>
-          <IconButton onClick={deleteWords}>
+          <IconButton onClick={deleteWord}>
             <BsTrash id="BsTrash" />
           </IconButton>
         </NavLink>
