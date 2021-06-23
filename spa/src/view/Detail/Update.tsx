@@ -32,8 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.secondary,
     },
     form: {
-      padding: "20px 0px 10px 70px",
-      width: "500px",
+      padding: "10px 70px 10px 70px",
+      width: "350px",
+      "overflow-x": "hidden",
     },
     button: {},
   })

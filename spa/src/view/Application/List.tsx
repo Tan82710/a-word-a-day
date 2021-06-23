@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -8,6 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import { NavLink } from "react-router-dom";
 import "../../index.css";
 import {Add} from "../Application/Add";
+import Swal from 'sweetalert2';
+import {useHistory} from 'react-router-dom';
 
 import { DateTime } from "luxon";
 
@@ -45,21 +47,21 @@ export let liste = [
     id: 0,
     mot: "Lapin",
     traduction: "Rabbit",
-    date: DateTime.fromObject({ year: 2021, month: 6, day: 4 }),
+    date: DateTime.fromObject({ year: 2021, month: 6, day: 14 }),
     gapDate: 0,
   },
   {
     id: 1,
     mot: "Chat",
     traduction: "Cat",
-    date: DateTime.fromObject({ year: 2021, month: 6, day: 1 }),
+    date: DateTime.fromObject({ year: 2021, month: 6, day: 13 }),
     gapDate: 0,
   },
   {
     id: 2,
     mot: "Chien",
     traduction: "Dogggggggg",
-    date: DateTime.fromObject({ year: 2021, month: 5, day: 15}),
+    date: DateTime.fromObject({ year: 2021, month: 6, day: 1}),
     gapDate: 0,
   },
   {
@@ -150,14 +152,59 @@ function filter(gapDay: number) {
   console.log(indent)
 }
 
-export const deleteWord = (data : Liste) => {
-  const index = listes.indexOf(data);
-  listes.splice(index, 1)
+export const deleteWord = () => {
+  deleteWords()
 }
+
+// let check : boolean;
+// export const deleteWord = (data : Liste) => {
+//   console.log('Delete !')
+//   const index = listes.indexOf(data);
+//   if(check == false){
+//     console.log('FALSE')
+//     return 
+//   }else if(check == true ){
+//     listes.splice(index, 1)
+//   }
+// }
 
 export let myPeriod : string ;
 
 export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
+
+
+  function deleteWords(data : Liste){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result: { isConfirmed: any; }) => {
+      console.log(result.isConfirmed)
+      if (result.isConfirmed) { 
+        // check = result.isConfirmed;
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+          const index = listes.indexOf(data);
+          listes.splice(index, 1)
+          test()
+      }
+    })
+  }
+  
+
+  function test(){
+    handleOnClick()
+  }
+
+  const history = useHistory();
+  const handleOnClick = useCallback(() => history.push('/'), [history]);
 
   const period = dataFromFilter.dataFromFilter;
   myPeriod = period;
@@ -191,6 +238,7 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
       return data;
     } 
   }
+
 
   gap(arrGapDays);
   selectPeriod(period);
@@ -231,9 +279,8 @@ export const List: React.FunctionComponent<Props> = (dataFromFilter) => {
           </CardActions>
         </NavLink>
         <NavLink to={"/"}>
-        <Button onClick={() => deleteWord(data)}>Delete</Button>
+        <Button onClick={() => deleteWords(data)}>Delete</Button>
         </NavLink>
-        
       </Card>
     );
   }

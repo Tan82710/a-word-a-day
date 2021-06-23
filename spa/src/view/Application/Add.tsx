@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      width: "500px",
-      padding : "20% 10% 10% 10%",
+      // width: "350px",
+      // padding : "10px 70px 10px 70px;",
       '& > *': {
         margin: "auto",
       },
@@ -43,8 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.secondary,
     },
     form: {
-      padding: "20px 0px 10px 70px",
-      width: "500px",
+      padding: "10px 70px 10px 70px",
+      width: "350px",
+      "overflow-x": "hidden",
     },
     button: {
 
@@ -87,10 +88,14 @@ function SimpleDialog(props: SimpleDialogProps) {
 
   return (
         <form className={classes.form} noValidate autoComplete="off" >
-        <InputLabel htmlFor="component-simple">Mot :</InputLabel>
-        <Input id="component-simple" value={word} onChange={handleChangeWord}  />
-        <InputLabel htmlFor="component-simple">Traduction</InputLabel>
-        <Input id="component-simple" value={translation} onChange={handleChangeTranslation}  />
+          <div id="padding">
+          <InputLabel htmlFor="component-simple">Mot :</InputLabel>
+          <Input id="component-simple" value={word} onChange={handleChangeWord}  /> 
+          </div>
+          <div id="padding">
+          <InputLabel htmlFor="component-simple">Traduction</InputLabel>
+          <Input id="component-simple" value={translation} onChange={handleChangeTranslation}  />
+          </div>
         <NavLink to={"/"}>
         <ListItem className={classes.form} autoFocus button onClick={() => Add(word, translation)}>
           <Button variant="contained" color="primary">
